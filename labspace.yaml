@@ -1,0 +1,13 @@
+title: Docker DHI Node Labspace 
+description: |
+  A repository containing a Hello World Node.js application consisting of a basic ExpressJS server and Dockerfile pointing to an Debian Base image to demonstrate the use of Docker Hardened Images (DHI)
+
+sections:
+  - title: Introducing Docker Scout and Docker Hardened Images (DHI)
+    contentPath: .labspace/01-introduction.md
+  - title: Scan the Node.js Application with Docker Scout
+    contentPath: .labspace/02-image-scanning.md
+  - title: Making the Switch to Docker Hardened Images
+    contentPath: .labspace/03-switch-to-dhi.md
+  - title: DHI Attestations and Scanner Integration
+    contentPath: .labspace/04-compliance.md
