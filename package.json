@@ -13,7 +13,7 @@
     "lint": "eslint \"**/*.js\""
   },
   "dependencies": {
-    "express": "4.17.1"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "axios": "^1.6.0",

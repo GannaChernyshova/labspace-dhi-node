@@ -1,4 +1,4 @@
-FROM node:24.9.0-trixie-slim AS dev
+FROM demonstrationorg/dhi-node:24.9.0-debian13-dev AS dev
 
 ENV BLUEBIRD_WARNINGS=0 \
 NODE_ENV=production \
@@ -22,7 +22,7 @@ COPY . .
 
 
 #-- Prod stage --
-FROM node:24.9.0-trixie-slim AS prod
+FROM demonstrationorg/dhi-node:24.9.0-debian13 AS prod
 
 WORKDIR /app
 

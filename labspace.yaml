@@ -5,9 +5,11 @@ description: |
 sections:
   - title: Introducing Docker Scout and Docker Hardened Images (DHI)
     contentPath: .labspace/01-introduction.md
+  - title: Mirror the image
+    contentPath: .labspace/02-mirror-the-image.md
   - title: Scan the Node.js Application with Docker Scout
-    contentPath: .labspace/02-image-scanning.md
+    contentPath: .labspace/03-image-scanning.md
   - title: Making the Switch to Docker Hardened Images
-    contentPath: .labspace/03-switch-to-dhi.md
+    contentPath: .labspace/04-switch-to-dhi.md
   - title: DHI Attestations and Scanner Integration
-    contentPath: .labspace/04-compliance.md
+    contentPath: .labspace/05-compliance.md
