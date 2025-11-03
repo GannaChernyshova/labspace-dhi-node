@@ -6,7 +6,7 @@ In addition to providing a minimal and secure base image, Docker Hardened Images
 
 You can run the following command to see the full list of attestations for `dhi-node:24.9.0-debian13`:
 ```bash
-docker scout attest list demonstrationorg/dhi-node:24.9.0-debian13
+docker scout attest list $$orgname$$/dhi-node:24.9.0-debian13
 ```
 In the output you will see the list of available attestatins, such as:
 * CycloneDX SBOM (A software bill of materials in CycloneDX format, listing components, libraries, and versions.)
@@ -26,7 +26,7 @@ In the output you will see the list of available attestatins, such as:
 
 DHI Prive SBOMs in the CycloneDX, SPDX or Scout formats. To view the specific SBOM file, like SPDX SBOM that is widely adopted in open-source ecosystems, you can use the `docker scout attest get` command:
 ```bash
-docker scout attest get demonstrationorg/dhi-node:24.9.0-debian13 \
+docker scout attest get $$orgname$$/dhi-node:24.9.0-debian13 \
 --predicate-type https://spdx.dev/Document
 ```
 
@@ -36,9 +36,9 @@ FIPS 140 compliance is required or strongly recommended in many regulated enviro
 
 DHIs include variants that use cryptographic modules validated under FIPS 140. 
 
-You can retrieve and inspect the FIPS attestation for the `demonstrationorg/dhi-node:24.9.0-debian13-fips` using the Docker Scout CLI:
+You can retrieve and inspect the FIPS attestation for the `$$orgname$$/dhi-node:24.9.0-debian13-fips` using the Docker Scout CLI:
 ```bash
-docker scout attest get --predicate-type https://docker.com/dhi/fips/v0.1 --predicate demonstrationorg/dhi-node:24.9.0-debian13-fips
+docker scout attest get --predicate-type https://docker.com/dhi/fips/v0.1 --predicate $$orgname$$/dhi-node:24.9.0-debian13-fips
 ```
 In the output you'll see the CMVP # and the FIPS Provider name, for example:
 ```plaintext no-copy-button
@@ -55,7 +55,7 @@ Docker also provides a signed STIG scan attestation for each STIG-hardened image
 
 You can retrieve and inspect a STIG scan attestation using the Docker Scout CLI:
 ```bash
-docker scout attest get --predicate-type https://docker.com/dhi/stig/v0.1 --predicate demonstrationorg/dhi-node:24.9.0-debian13-fips
+docker scout attest get --predicate-type https://docker.com/dhi/stig/v0.1 --predicate $$orgname$$/dhi-node:24.9.0-debian13-fips
 ```
 **Integration with external security tools**
 
@@ -63,7 +63,7 @@ To verify the security posture using an external scanning tool you already use, 
 
 First, you can view the list of available attestations for the DHI-based image using the `docker scout attest` command:
 ```bash
-docker scout attest list demonstrationorg/demo-node-dhi:v1 --platform linux/arm64
+docker scout attest list $$orgname$$/demo-node-dhi:v1 --platform linux/arm64
 ```
 
 You'll see two OpenVEX files: one for the DHI base image and another for any custom exceptions (like no-dsa) specific to your image.
@@ -71,14 +71,14 @@ You'll see two OpenVEX files: one for the DHI base image and another for any cus
 Then, to integrate this information with external tools, you can export the VEX data into a vex.json file. Starting Docker Scout v1.18.3 you can use the `docker scout vex` get command to get the merged VEX document from all VEX attestations:
 
 ```bash
-docker scout vex get demonstrationorg/demo-node-dhi:v1 --output vex.json
+docker scout vex get $$orgname$$/demo-node-dhi:v1 --output vex.json
 ```
 
 This generates a `vex.json` file containing all VEX statements for the specified image. Tools that support VEX can then use this file to suppress known non-exploitable CVEs.
 
 To use the VEX information with Grype or Trivy, pass the –vex flag during scanning:
 ```bash
-trivy image demonstrationorg/demo-node-dhi:v1 --vex vex.json
+trivy image $$orgname$$/demo-node-dhi:v1 --vex vex.json
 ```
 
 This ensures your security scanning results are consistent across tools, leveraging the same set of vulnerability contexts provided by Docker Scout.

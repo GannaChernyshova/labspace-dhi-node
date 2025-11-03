@@ -4,32 +4,32 @@ Switching to a Docker Hardened Image is straightforward. All we need to do is re
 
 Docker Hardened Images come in two variants:
 
-* Dev variant (`demonstrationorg/dhi-node:24.9.0-debian13-dev`) – includes a shell and package managers, making it suitable for building and testing.
-* Runtime variant (`demonstrationorg/dhi-node:24.9.0-debian13`) – stripped down to only the essentials, providing a minimal and secure footprint for production.
+* Dev variant (`$$orgname$$/dhi-node:24.9.0-debian13-dev`) – includes a shell and package managers, making it suitable for building and testing.
+* Runtime variant (`$$orgname$$/dhi-node:24.9.0-debian13`) – stripped down to only the essentials, providing a minimal and secure footprint for production.
 
 This makes them perfect for use in multi-stage Dockerfiles. We can build the app in the dev image, then copy the built application into the runtime image, which will serve as the base for production.
 
-1. Update the `Dockerfile` to use the `demonstrationorg/dhi-node:24.9.0-debian13-dev` as a `dev` satge image and `demonstrationorg/dhi-node:24.9.0-debian13` as a `runtime` image
+1. Update the `Dockerfile` to use the `$$orgname$$/dhi-node:24.9.0-debian13-dev` as a `dev` satge image and `$$orgname$$/dhi-node:24.9.0-debian13` as a `runtime` image
 ```dockerfile
-FROM demonstrationorg/dhi-node:24.9.0-debian13-dev AS dev
+FROM $$orgname$$/dhi-node:24.9.0-debian13-dev AS dev
 ```
 ```dockerfile
-FROM demonstrationorg/dhi-node:24.9.0-debian13 AS prod
+FROM $$orgname$$/dhi-node:24.9.0-debian13 AS prod
 ```
 2. Looking back at the output for the `scout quickview` the `No default non-root user found` policy was not met. To resolve this we tipically need to add a non-root user to the Dockerfile description. The good news is that the DHI comes with nonroot user built-in so no changes should be made.
 
 3. Now Let’s rebuild and scan the new image:
 ```bash
-docker buildx build --provenance=true --sbom=true -t demonstrationorg/demo-node-dhi:v1 .
+docker buildx build --provenance=true --sbom=true -t $$orgname$$/demo-node-dhi:v1 .
 ```
 ```bash
-docker scout quickview demonstrationorg/demo-node-dhi:v1
+docker scout quickview $$orgname$$/demo-node-dhi:v1
 ```
 You would see the similar output:
 ```plaintext no-copy-button
-  Target     │  demonstrationorg/demo-node-dhi:v1          │    0C     0H     0M     0L   
+  Target     │  $$orgname$$/demo-node-dhi:v1          │    0C     0H     0M     0L   
     digest   │  cec31e6f0a36                               │                              
-  Base image │  demonstrationorg/dhi-node:24.9.0-debian13  │                              
+  Base image │  $$orgname$$/dhi-node:24.9.0-debian13  │                              
 
 Policy status  SUCCESS  (9/9 policies met)
 
@@ -51,7 +51,7 @@ Hooray! There are zero CVEs and Policy violations now!
 
 Docker Scout offers a helpful command docker scout compare , that allows you to analyze and compare two images. We’ll use it to evaluate the difference in size and package footprint between `node:24.9.0-trixie-slim` and `dhi-node:24.9.0-debian13` based images.
 ```bash
-docker scout compare local://demonstrationorg/demo-node-doi:v2 --to local://demonstrationorg/demo-node-dhi:v1
+docker scout compare local://$$orgname$$/demo-node-doi:v2 --to local://$$orgname$$/demo-node-dhi:v1
 ```
 You would see the similar summary in the output:
 ```plaintext no-copy-button
@@ -59,7 +59,7 @@ You would see the similar summary in the output:
   
                       │               Analyzed Image                │              Comparison Image                
   ────────────────────┼─────────────────────────────────────────────┼──────────────────────────────────────────────
-    Target            │  local://demonstrationorg/demo-node-doi:v1  │  local://demonstrationorg/demo-node-dhi:v1   
+    Target            │  local://$$orgname$$/demo-node-doi:v1       │  local://$$orgname$$/demo-node-dhi:v1   
       digest          │  75eb23bc5d85                               │  e7a47068ccfa                                
       tag             │  v1                                         │  v1                                          
       platform        │ linux/arm64                                 │ linux/arm64                                  
@@ -68,7 +68,7 @@ You would see the similar summary in the output:
       size            │ 100 MB (+41 MB)                             │ 59 MB                                        
       packages        │ 901 (+248)                                  │ 653                                          
                       │                                             │                                              
-    Base image        │  node:24-trixie-slim                        │  demonstrationorg/dhi-node-smontri:24        
+    Base image        │  node:24-trixie-slim                        │  $$orgname$$/dhi-node-smontri:24        
       tags            │ also known as                               │ also known as                                
                       │   • current-trixie-slim                     │                                              
                       │   • trixie-slim                             │                                              
@@ -83,7 +83,7 @@ Last but not least, after migrating to a DHI base image, we should verify that t
 
 1. To do so, we can either start the app locally with:
 ```bash
-docker run --rm -d --name demo-node -p 3005:3000 demonstrationorg/demo-node-dhi:v1
+docker run --rm -d --name demo-node -p 3005:3000 $$orgname$$/demo-node-dhi:v1
 ```
 and navigate to :tabLink[This link]{href="http://localhost:3005" title="Web app"} to validate that the app is up and running.
 
