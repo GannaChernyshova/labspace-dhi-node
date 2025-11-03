@@ -65,7 +65,7 @@ docker scout quickview $$orgname$$/demo-node-doi:v2
 ```
 You would see the similar output:
 ```plaintext no-copy-button
-Target     │  demonstrationorg/demo-node-doi:v2  │    0C     1H     1M    22L   
+Target     │  $$orgname$$/demo-node-doi:v2       │    0C     1H     1M    22L   
   digest   │  48bd36fe1f0b                       │                              
 Base image │  node:24.9.0-trixie-slim            │    0C     1H     1M    22L   
 
