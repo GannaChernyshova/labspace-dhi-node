@@ -51,7 +51,7 @@ Hooray! There are zero CVEs and Policy violations now!
 
 Docker Scout offers a helpful command docker scout compare , that allows you to analyze and compare two images. We’ll use it to evaluate the difference in size and package footprint between `node:24.9.0-trixie-slim` and `dhi-node:24.9.0-debian13` based images.
 ```bash
-docker scout compare local://demonstrationorg/demo-node-doi:v1 --to local://demonstrationorg/demo-node-dhi:v1
+docker scout compare local://demonstrationorg/demo-node-doi:v2 --to local://demonstrationorg/demo-node-dhi:v1
 ```
 You would see the similar summary in the output:
 ```plaintext no-copy-button
