@@ -1,6 +1,6 @@
 # Introduction
 
-👋 Welcome to the **Docker Hardened Images** lab! This lab outlines the benefits of Docker Hardened Images and walks you throught the migration process for the Node application.
+👋 Welcome to the **Docker Hardened Images** lab! This lab outlines the benefits of Docker Hardened Images and walks you through the migration process for the Node application.
 
 ## Docker Hardened Images are Secure, Minimal, Production-Ready Images with near-zero CVEs and enterprise-grade SLA for rapid remediation. 
 
@@ -12,6 +12,6 @@ These images follow a distroless philosophy, removing unnecessary components to 
 - **Built-in supply chain security:** Each image includes signed SBOMs, VEX documents, and SLSA provenance for audit-ready pipelines.
 
 
-[DHI Catalog](https://hub.docker.com/orgs/demonstrationorg/hardened-images/catalog) lists the enterprise-ready, secure container images with built-in compliance and minimal vulnerabilities.
+[Docker Hardened Images](https://www.docker.com/products/hardened-images/) lists the enterprise-ready, secure container images with built-in compliance and minimal vulnerabilities.
 
 

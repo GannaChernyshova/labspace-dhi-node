@@ -2,7 +2,7 @@
 
 ## Exploring the app
 
-This demo repository contains a Hello World Node.js application consisting of a basic ExpressJS server and Dockerfile pointing to an Trixie (debian 13) Base image.
+This demo repository contains a Hello World Node.js application consisting of a basic ExpressJS server and Dockerfile pointing to a Trixie (Debian 13) base image.
 The app logic is implemented in the :fileLink[app.js]{path="app.js"} file. 
 
 
@@ -29,7 +29,7 @@ Use the `docker scout cves` command to list all discovered vulnerabilities:
 docker scout cves $$orgname$$/demo-node-doi:v1
 ```
 
-After a moment, you will see details about each of the vulnerabilities discovered in the image with the similar summary.
+After a moment, you will see details about each of the vulnerabilities discovered in the image with a similar summary.
 
 ```plaintext no-copy-button
 34 vulnerabilities found in 17 packages
@@ -39,14 +39,14 @@ After a moment, you will see details about each of the vulnerabilities discovere
   LOW       26 
 ```
 
-A couple of things to note out of this:
+A couple of things to note about this:
 
 - If you scroll up or search the `pkg:npm/express@4.17.1` - this part of the report is related to the NPM package named `express`, which has version 4.17.1. You should see that the greatest fix version is `4.20.0`
 - Another source of HIGH CVEs is a `path-to-regexp 0.1.7`. The `express` package uses it internally and the `path-to-regexp` library is updated to a fixed version in express version `4.21.2`.
 
 3. A next step for a typical developer is to clean up the package.json dependencies by upgrading the version of each dependency to solve for those vulnerabilities.
 
-Update `express` to the reccommended (or latest) version by running the following command:
+Update `express` to the recommended (or latest) version by running the following command:
 
 ```bash
 npm install express@4.21.2
@@ -63,7 +63,7 @@ You can now analyze the image with the `docker scout quickview` command:
 ```bash
 docker scout quickview $$orgname$$/demo-node-doi:v2
 ```
-You would see the similar output:
+You will see similar output:
 ```plaintext no-copy-button
 Target     │  $$orgname$$/demo-node-doi:v2       │    0C     1H     1M    22L   
   digest   │  48bd36fe1f0b                       │                              
@@ -85,8 +85,8 @@ Policy status  FAILED  (6/9 policies met)
       
 ```
 
- Hooray! No more critical or high CVEs on the application level!
- But there are still few on the base image level. And the critical policies have failed:
+Hooray! No more critical or high CVEs on the application level!
+But there are still a few on the base image level. And the critical policies have failed:
 
     1. No default non-root user found
     2. Fixable critical or high vulnerabilities found

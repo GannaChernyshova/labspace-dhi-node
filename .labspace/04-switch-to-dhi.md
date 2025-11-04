@@ -9,23 +9,23 @@ Docker Hardened Images come in two variants:
 
 This makes them perfect for use in multi-stage Dockerfiles. We can build the app in the dev image, then copy the built application into the runtime image, which will serve as the base for production.
 
-1. Update the `Dockerfile` to use the `$$orgname$$/dhi-node:24.9.0-debian13-dev` as a `dev` satge image and `$$orgname$$/dhi-node:24.9.0-debian13` as a `runtime` image
+1. Update the `Dockerfile` to use the `$$orgname$$/dhi-node:24.9.0-debian13-dev` as a `dev` stage image and `$$orgname$$/dhi-node:24.9.0-debian13` as a `runtime` image
 ```dockerfile
 FROM $$orgname$$/dhi-node:24.9.0-debian13-dev AS dev
 ```
 ```dockerfile
 FROM $$orgname$$/dhi-node:24.9.0-debian13 AS prod
 ```
-2. Looking back at the output for the `scout quickview` the `No default non-root user found` policy was not met. To resolve this we tipically need to add a non-root user to the Dockerfile description. The good news is that the DHI comes with nonroot user built-in so no changes should be made.
+2. Looking back at the output for the `scout quickview`, the `No default non-root user found` policy was not met. To resolve this we typically need to add a non-root user to the Dockerfile description. The good news is that the DHI comes with a nonroot user built-in, so no changes should be made.
 
-3. Now Let’s rebuild and scan the new image:
+3. Now let's rebuild and scan the new image:
 ```bash
 docker buildx build --provenance=true --sbom=true -t $$orgname$$/demo-node-dhi:v1 .
 ```
 ```bash
 docker scout quickview $$orgname$$/demo-node-dhi:v1
 ```
-You would see the similar output:
+You will see similar output:
 ```plaintext no-copy-button
   Target     │  $$orgname$$/demo-node-dhi:v1          │    0C     0H     0M     0L   
     digest   │  cec31e6f0a36                          │                              
@@ -45,37 +45,37 @@ Policy status  SUCCESS  (9/9 policies met)
   ✓      │ No unapproved base images                   │    0 deviations              
   ✓      │ Supply chain attestations                   │    0 deviations    
 ```
-Hooray! There are zero CVEs and Policy violations now!
+Hooray! There are zero CVEs and policy violations now!
 
 **Let’s look at the image size and package count advantages of using distroless Hardened Images.**
 
-Docker Scout offers a helpful command docker scout compare , that allows you to analyze and compare two images. We’ll use it to evaluate the difference in size and package footprint between `node:24.9.0-trixie-slim` and `dhi-node:24.9.0-debian13` based images.
+Docker Scout offers a helpful command `docker scout compare` that allows you to analyze and compare two images. We’ll use it to evaluate the difference in size and package footprint between `node:24.9.0-trixie-slim` and `dhi-node:24.9.0-debian13` based images.
 ```bash
 docker scout compare local://$$orgname$$/demo-node-doi:v2 --to local://$$orgname$$/demo-node-dhi:v1
 ```
-You would see the similar summary in the output:
+You will see a similar summary in the output:
 ```plaintext no-copy-button
 ## Overview
   
                       │               Analyzed Image                │              Comparison Image                
   ────────────────────┼─────────────────────────────────────────────┼──────────────────────────────────────────────
-    Target            │  local://$$orgname$$/demo-node-doi:v1       │  local://$$orgname$$/demo-node-dhi:v1   
+    Target            │  local://$$orgname$$/demo-node-doi:v2       │  local://$$orgname$$/demo-node-dhi:v1   
       digest          │  75eb23bc5d85                               │  e7a47068ccfa                                
-      tag             │  v1                                         │  v1                                          
+      tag             │  v2                                         │  v1                                          
       platform        │ linux/arm64                                 │ linux/arm64                                  
       vulnerabilities │    0C     6H     2M    26L                  │    0C     0H     0M     8L                   
                       │           +6     +2    +18                  │                                              
       size            │ 100 MB (+41 MB)                             │ 59 MB                                        
       packages        │ 901 (+248)                                  │ 653                                          
                       │                                             │                                              
-    Base image        │  node:24-trixie-slim                        │  $$orgname$$/dhi-node-smontri:24        
+    Base image        │  node:24.9.0-trixie-slim                    │  $$orgname$$/dhi-node:24.9.0-debian13        
       tags            │ also known as                               │ also known as                                
                       │   • current-trixie-slim                     │                                              
                       │   • trixie-slim                             │                                              
       vulnerabilities │    0C     1H     1M    22L                  │    0C     0H     0M     0L      
 ```
 
-As you can see, the original `node:24.9.0-trixie-slim` based image is 41 MB larger, has 248 packages more in addition high, medium and low CVEs. While the `dhi-node:24.9.0-debian13` based image is 40 % smaller and has near-zero CVEs. 
+As you can see, the original `node:24.9.0-trixie-slim` based image is 41 MB larger, has 248 more packages, and includes high, medium, and low CVEs. The `dhi-node:24.9.0-debian13` based image is 40% smaller and has near-zero CVEs. 
 
 **Validate that the app works as expected**
 
@@ -92,11 +92,11 @@ Then stop the container:
 docker stop demo-node
 ```
 
-2. Or we can run the fuctinal test and build an app from the Dockerfile using Testcontainers library.
+2. Or we can run the functional test and build an app from the Dockerfile using the Testcontainers library.
 
-[Testcontainers](https://testcontainers.com/cloud/) allows to run the containerized application along with any required services, such as databases, effectively reproducing the local environment needed to test the application at the API or end-to-end (E2E) level.
+[Testcontainers](https://testcontainers.com/cloud/) allows you to run the containerized application along with any required services, such as databases, effectively reproducing the local environment needed to test the application at the API or end-to-end (E2E) level.
 
-This simple code block from the `test\app.test.js` allows to start the application under development form the Dockerfile on demand only for the testing phase:
+This simple code block from the `test/app.test.js` allows you to start the application under development from the Dockerfile on demand only for the testing phase:
 ```plaintext no-copy-button
  const builtContainer = await GenericContainer.fromDockerfile('.').build();
  container = await builtContainer
