@@ -28,7 +28,7 @@ docker scout quickview $$orgname$$/demo-node-dhi:v1
 You would see the similar output:
 ```plaintext no-copy-button
   Target     │  $$orgname$$/demo-node-dhi:v1          │    0C     0H     0M     0L   
-    digest   │  cec31e6f0a36                               │                              
+    digest   │  cec31e6f0a36                          │                              
   Base image │  $$orgname$$/dhi-node:24.9.0-debian13  │                              
 
 Policy status  SUCCESS  (9/9 policies met)
