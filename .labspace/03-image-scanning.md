@@ -43,13 +43,14 @@ A couple of things to note about this:
 
 - If you scroll up or search the `pkg:npm/express@4.17.1` - this part of the report is related to the NPM package named `express`, which has version 4.17.1. You should see that the greatest fix version is `4.20.0`
 - Another source of HIGH CVEs is a `path-to-regexp 0.1.7`. The `express` package uses it internally and the `path-to-regexp` library is updated to a fixed version in express version `4.21.2`.
+- Aslo you may see another HIGH CVE `pkg:npm/glob@10.4.5`
 
-3. A next step for a typical developer is to clean up the package.json dependencies by upgrading the version of each dependency to solve for those vulnerabilities.
+3. A common next step for developers is to clean up the package.json by updating dependencies to address known vulnerabilities.
 
-Update `express` to the recommended (or latest) version by running the following command:
+You could upgrade each dependency manually, but to simplify this process during the lab, let's use the following command, which automatically applies available fixes (and may update some packages to newer major versions):
 
 ```bash
-npm install express@4.21.2
+npm audit fix --force
 ```
 
 4. Build your image again by running the following command:
