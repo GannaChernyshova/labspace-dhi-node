@@ -1,9 +1,5 @@
 # Getting started
 
-## First thing to get started, please provide your Docker org name
-
-::variableDefinition[orgname]{prompt="What is your Docker org name?"}
-
 ## 1. Mirror a DHI node image repo
 
 Go to the [Node DHI page](https://hub.docker.com/orgs/$$orgname$$/hardened-images/catalog/dhi/node) and click on the `Mirror to repository` button.

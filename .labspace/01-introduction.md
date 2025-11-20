@@ -2,6 +2,10 @@
 
 👋 Welcome to the **Docker Hardened Images** lab! This lab outlines the benefits of Docker Hardened Images and walks you through the migration process for the Node application.
 
+## First thing to get started, please provide your Docker org name
+
+::variableDefinition[orgname]{prompt="What is your Docker org name?"}
+
 ## Docker Hardened Images are Secure, Minimal, Production-Ready Images with near-zero CVEs and enterprise-grade SLA for rapid remediation. 
 
 These images follow a distroless philosophy, removing unnecessary components to significantly reduce the attack surface. The result? Smaller images that pull faster, run leaner, and provide a secure-by-default foundation for production workloads:
