@@ -51,7 +51,7 @@ Hooray! There are zero CVEs and policy violations now!
 
 Docker Scout offers a helpful command `docker scout compare` that allows you to analyze and compare two images. We’ll use it to evaluate the difference in size and package footprint between `node:24.9.0-trixie-slim` and `dhi-node:24.9.0-debian13` based images.
 ```bash
-docker scout compare local://$$orgname$$/demo-node-doi:v2 --to local://$$orgname$$/demo-node-dhi:v1
+docker scout compare local://$$orgname$$/demo-node-dhi:v1 --to local://$$orgname$$/demo-node-doi:v1
 ```
 You will see a similar summary in the output:
 ```plaintext no-copy-button
@@ -59,23 +59,24 @@ You will see a similar summary in the output:
   
                       │               Analyzed Image                │              Comparison Image                
   ────────────────────┼─────────────────────────────────────────────┼──────────────────────────────────────────────
-    Target            │  local://$$orgname$$/demo-node-doi:v2       │  local://$$orgname$$/demo-node-dhi:v1   
-      digest          │  75eb23bc5d85                               │  e7a47068ccfa                                
-      tag             │  v2                                         │  v1                                          
+    Target            │  local://demonstrationorg/demo-node-dhi:v1  │  local://demonstrationorg/demo-node-doi:v1   
+      digest          │  e5b9ec7a980c                               │  66cb8da420d8                                
+      tag             │  v1                                         │  v1                                          
       platform        │ linux/arm64                                 │ linux/arm64                                  
-      vulnerabilities │    0C     6H     2M    26L                  │    0C     0H     0M     8L                   
-                      │           +6     +2    +18                  │                                              
-      size            │ 100 MB (+41 MB)                             │ 59 MB                                        
-      packages        │ 901 (+248)                                  │ 653                                          
+      vulnerabilities │    0C     0H     0M     8L                  │    0C     2H     1M    18L                   
+                      │           -2     -1    -10                  │                                              
+      size            │ 59 MB (-41 MB)                              │ 100 MB                                       
+      packages        │ 648 (-248)                                  │ 896                                          
                       │                                             │                                              
-    Base image        │  node:24.9.0-trixie-slim                    │  $$orgname$$/dhi-node:24.9.0-debian13        
+    Base image        │  demonstrationorg/dhi-node-smontri:24       │  node:24-trixie-slim                         
       tags            │ also known as                               │ also known as                                
-                      │   • current-trixie-slim                     │                                              
-                      │   • trixie-slim                             │                                              
-      vulnerabilities │    0C     1H     1M    22L                  │    0C     0H     0M     0L      
+                      │                                             │   • current-trixie-slim                      
+                      │                                             │   • trixie-slim                              
+      vulnerabilities │    0C     0H     0M     0L                  │    0C     2H     1M    18L                   
+  
 ```
 
-As you can see, the original `node:24.9.0-trixie-slim` based image is 41 MB larger, has 248 more packages, and includes high, medium, and low CVEs. The `dhi-node:24.9.0-debian13` based image is 40% smaller and has near-zero CVEs. 
+As you can see, the `dhi-node:24.9.0-debian13`–based image is **41 MB (around 40%) smaller**, contains **248 fewer packages**, and has nearly **zero CVEs** compared to the original `node:24.9.0-trixie-slim`–based image.
 
 **Validate that the app works as expected**
 

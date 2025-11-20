@@ -13,7 +13,7 @@ describe('App Integration Tests', () => {
 
     container = await builtContainer
       .withExposedPorts(3000)
-      .withWaitStrategy(Wait.forLogMessage(/Example app listening on port \d+/))
+      .withWaitStrategy(Wait.forLogMessage(/Server listening on port \d+/))
       .start();
 
     // Get the mapped port
