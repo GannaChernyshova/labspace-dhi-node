@@ -1,7 +1,7 @@
 services:
   configurator:
     environment:
-      PROJECT_CLONE_URL: https://github.com/GannaChernyshova/labspace-dhi-node
+      PROJECT_CLONE_URL: https://github.com/dockersamples/labspace-dhi-node
 
   # workspace:
   #   # Override the default image if desired
