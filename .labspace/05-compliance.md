@@ -4,9 +4,9 @@
 
 In addition to providing a minimal and secure base image, Docker Hardened Images include a comprehensive set of attestations.
 
-You can run the following command to see the full list of attestations for `dhi-node:24.9.0-debian13`:
+You can run the following command to see the full list of attestations for `dhi-node:24-debian13`:
 ```bash
-docker scout attest list $$orgname$$/dhi-node:24.9.0-debian13
+docker scout attest list $$orgname$$/dhi-node:24-debian13
 ```
 In the output you will see the list of available attestations, such as:
 * CycloneDX SBOM (A software bill of materials in CycloneDX format, listing components, libraries, and versions.)
@@ -26,7 +26,7 @@ In the output you will see the list of available attestations, such as:
 
 DHI provides SBOMs in the CycloneDX, SPDX, or Scout formats. To view a specific SBOM file, such as the SPDX SBOM that is widely adopted in open-source ecosystems, you can use the `docker scout attest get` command:
 ```bash
-docker scout attest get $$orgname$$/dhi-node:24.9.0-debian13 \
+docker scout attest get $$orgname$$/dhi-node:24-debian13 \
 --predicate-type https://spdx.dev/Document
 ```
 
@@ -36,9 +36,9 @@ FIPS 140 compliance is required or strongly recommended in many regulated enviro
 
 DHIs include variants that use cryptographic modules validated under FIPS 140. 
 
-You can retrieve and inspect the FIPS attestation for the `$$orgname$$/dhi-node:24.9.0-debian13-fips` using the Docker Scout CLI:
+You can retrieve and inspect the FIPS attestation for the `$$orgname$$/dhi-node:24-debian13-fips` using the Docker Scout CLI:
 ```bash
-docker scout attest get --predicate-type https://docker.com/dhi/fips/v0.1 --predicate $$orgname$$/dhi-node:24.9.0-debian13-fips
+docker scout attest get --predicate-type https://docker.com/dhi/fips/v0.1 --predicate $$orgname$$/dhi-node:24-debian13-fips
 ```
 In the output you'll see the CMVP # and the FIPS Provider name, for example:
 ```plaintext no-copy-button
@@ -55,7 +55,7 @@ Docker also provides a signed STIG scan attestation for each STIG-hardened image
 
 You can retrieve and inspect a STIG scan attestation using the Docker Scout CLI:
 ```bash
-docker scout attest get --predicate-type https://docker.com/dhi/stig/v0.1 --predicate $$orgname$$/dhi-node:24.9.0-debian13-fips
+docker scout attest get --predicate-type https://docker.com/dhi/stig/v0.1 --predicate $$orgname$$/dhi-node:24-debian13-fips
 ```
 **Integration with external security tools**
 
