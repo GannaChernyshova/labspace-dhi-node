@@ -10,7 +10,7 @@ The app logic is implemented in the :fileLink[app.js]{path="app.js"} file.
 
 To follow modern best practices, we want to containerize the app and eventually deploy it to production. Before doing so, we must ensure the image is secure by using [Docker Scout](https://www.docker.com/products/docker-scout/)
 
-Our Dockerfile takes a multi-stage build approach and is based on the `node:24.9.0-trixie-slim` image.
+Our Dockerfile takes a multi-stage build approach and is based on the `node:24-trixie-slim` image.
 
 **Let’s build our image with SBOM and provenance metadata**
 This lab already has a :fileLink[Dockerfile]{path="Dockerfile"}, so you can easily build the image.
@@ -30,14 +30,11 @@ docker scout quickview $$orgname$$/demo-node-doi:v1
 ```
 You will see similar output:
 ```plaintext no-copy-button
-    i Base image was auto-detected. To get more accurate results, build images with max-mode provenance attestations.
-      Review docs.docker.com ↗ for more information.
+ Target      │  orgname/demo-node-doi:v1           │    0C     2H     2M    20L   
+    digest   │  771a1b07daa3                       │                              
+  Base image │  node:24-trixie-slim                │    0C     1H     2M    20L   
 
-  Target     │  demonstrationorg/demo-node-doi:v1  │    0C     2H     1M    18L   
-    digest   │  66cb8da420d8                       │                              
-  Base image │  node:24-trixie-slim                │    0C     2H     1M    18L   
-
-Policy status  FAILED  (5/10 policies met, 1 missing data)
+Policy status  FAILED  (6/10 policies met)
 
   Status │                              Policy                              │           Results            
 ─────────┼──────────────────────────────────────────────────────────────────┼──────────────────────────────
@@ -48,11 +45,10 @@ Policy status  FAILED  (5/10 policies met, 1 missing data)
   ✓      │ No embedded secrets (Rego)                                       │    0 deviations              
   !      │ Fixable critical or high vulnerabilities found                   │    0C     2H     0M     0L   
   ✓      │ No high-profile vulnerabilities                                  │    0C     0H     0M     0L   
-  !      │ No unapproved base images                                        │    No data                   
-  ✓      │ Missing supply chain attestation(s)                              │    2 deviations                   
-      
+  !      │ Unapproved base images found                                     │    1 deviation               
+  ✓      │ Supply chain attestations                                        │    0 deviations              
 ```
-As you can see, there are no CVEs at the application level, but the base image contains 2 high, 1 medium, and 18 low severity CVEs, so it is recommended to be updated. Additionally, the critical policies have failed:
+As you can see, there are no CVEs at the application level, but the base image contains a number of high, medium, and low severity CVEs, so it is recommended to be updated. Additionally, the critical policies have failed:
 
     1. No default non-root user found
     2. Fixable critical or high vulnerabilities found

@@ -1,4 +1,4 @@
-FROM node:24.9.0-trixie-slim AS dev
+FROM node:24-trixie-slim AS dev
 
 ENV BLUEBIRD_WARNINGS=0 \
 NODE_ENV=production \
@@ -22,7 +22,7 @@ COPY . .
 
 
 #-- Prod stage --
-FROM node:24.9.0-trixie-slim AS prod
+FROM node:24-trixie-slim AS prod
 
 WORKDIR /app
 
