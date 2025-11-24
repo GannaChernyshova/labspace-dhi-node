@@ -109,5 +109,5 @@ This simple code block from the `test/app.test.js` allows you to start the appli
 ```
 Let’s run the tests using the npm test command:
 ```bash
-npm test
+npm install && npm test
 ```
