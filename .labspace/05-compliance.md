@@ -63,7 +63,7 @@ To verify the security posture using an external scanning tool you already use, 
 
 First, you can view the list of available attestations for the DHI-based image using the `docker scout attest` command:
 ```bash
-docker scout attest list $$orgname$$/demo-node-dhi:v1 --platform linux/arm64
+docker scout attest list $$orgname$$/demo-node-dhi:v1
 ```
 
 You'll see two OpenVEX files: one for the DHI base image and another for any custom exceptions (like no-dsa) specific to your image.
