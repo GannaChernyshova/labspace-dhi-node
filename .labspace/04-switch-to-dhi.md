@@ -94,20 +94,3 @@ Then stop the container:
 ```bash
 docker stop demo-node
 ```
-
-2. Or we can run the functional test and build an app from the Dockerfile using the Testcontainers library.
-
-[Testcontainers](https://testcontainers.com/cloud/) allows you to run the containerized application along with any required services, such as databases, effectively reproducing the local environment needed to test the application at the API or end-to-end (E2E) level.
-
-This simple code block from the `test/app.test.js` allows you to start the application under development from the Dockerfile on demand only for the testing phase:
-```plaintext no-copy-button
- const builtContainer = await GenericContainer.fromDockerfile('.').build();
- container = await builtContainer
-      .withExposedPorts(3000)
-      .withWaitStrategy(Wait.forLogMessage(/Example app listening on port \d+/))
-      .start();
-```
-Let’s run the tests using the npm test command:
-```bash
-npm install && npm test
-```
